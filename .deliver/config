@@ -1,0 +1,33 @@
+APP="sshero"
+
+BUILD_HOST="deployer"
+BUILD_USER="root"
+BUILD_AT="/root/app_build"
+
+PRODUCTION_HOSTS="deployer"
+PRODUCTION_USER="root"
+DELIVER_TO="/root/app_release"
+
+AUTO_VERSION=commit-count+git-revision
+
+pre_erlang_get_and_update_deps() {
+  local _prod_secret_path="/root/app_config/prod.secret.exs"
+  if [ "$TARGET_MIX_ENV" = "prod" ]; then
+    __sync_remote "
+      # fail if any command fails (recommended)
+      set -e
+
+      ln -sfn '$_prod_secret_path' '$BUILD_AT/config/prod.secret.exs'
+
+      cd '$BUILD_AT'
+      # required by the phx.digest task
+      mkdir -p priv/static
+      mix deps.get
+      cd '$BUILD_AT/assets'
+      npm install
+      $BUILD_AT/assets/node_modules/.bin/brunch build --production
+      cd '$BUILD_AT'
+      APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phx.digest $SILENCE
+    "
+  fi
+}
