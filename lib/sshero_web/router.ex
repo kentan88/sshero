@@ -17,6 +17,7 @@ defmodule SSHeroWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/deploy", PageController, :deploy
   end
 
   # Other scopes may use custom stacks.

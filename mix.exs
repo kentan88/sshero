@@ -42,7 +42,8 @@ defmodule SSHero.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:edeliver, "~> 1.4.3"},
-      {:distillery, "~> 1.5", runtime: false}
+      {:distillery, "~> 1.5", runtime: false},
+      {:porcelain, "~> 2.0"}
     ]
   end
 

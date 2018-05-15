@@ -3,6 +3,7 @@ defmodule SSHeroWeb.UserSocket do
 
   ## Channels
   # channel "room:*", SSHeroWeb.RoomChannel
+  channel "deploy", SSHeroWeb.DeployChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

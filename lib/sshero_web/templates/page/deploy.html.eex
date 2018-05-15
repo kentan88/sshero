@@ -1,0 +1,4 @@
+<button class="btn btn-primary" id="btn-upgrade">Upgrade</button>
+
+<ul id="stream-list">
+</ul>
